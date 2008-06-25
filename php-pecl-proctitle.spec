@@ -1,9 +1,10 @@
 %define		snap	36540
 %define		_modname	proctitle
+%define		rel		2
 Summary:	%{_modname} - show what code is running in process name
 Name:		php-pecl-%{_modname}
 Version:	0.1
-Release:	0.%{snap}.1
+Release:	0.%{snap}.%{rel}
 License:	PHP
 Group:		Development/Languages/PHP
 Source0:	http://tools.wikimedia.de/~vvv/mw-nightly/pool/ext-pecl-proctitle-nightly-r%{snap}.tar.gz
