@@ -37,7 +37,7 @@ phpize
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -D %{_modname}-%{version}/modules/proctitle.so $RPM_BUILD_ROOT%{php_extensiondir}/%{_modname}.so
+install -D pecl-%{_modname}/modules/proctitle.so $RPM_BUILD_ROOT%{php_extensiondir}/%{_modname}.so
 
 install -d $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d
 
