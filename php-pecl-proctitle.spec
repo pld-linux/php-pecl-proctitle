@@ -1,48 +1,50 @@
-%define		snap	36540
-%define		_modname	proctitle
-%define		rel		2
-Summary:	%{_modname} - show what code is running in process name
-Name:		php-pecl-%{_modname}
-Version:	0.1
-Release:	0.%{snap}.%{rel}
-License:	PHP
+%define		modname proctitle
+Summary:	change current process' name
+Summary(pl.UTF-8):	zmiana nazwy bieżącego procesu
+Name:		php-pecl-%{modname}
+Version:	0.1.1
+Release:	1
+License:	PHP 3.01
 Group:		Development/Languages/PHP
-Source0:	http://tools.wikimedia.de/~vvv/mw-nightly/pool/ext-pecl-proctitle-nightly-r%{snap}.tar.gz
-# Source0-md5:	384facb4e0c59b4e6c499a824ebef3a2
-URL:		http://svn.wikimedia.org/viewvc/mediawiki/trunk/extensions/pecl-proctitle/
+Source0:	http://pecl.php.net/get/%{modname}-%{version}.tgz
+# Source0-md5:	274eb72584b7fc617f191473bcd2ee14
+URL:		http://pecl.php.net/package/proctitle/
 BuildRequires:	php-devel >= 3:5.0.0
 BuildRequires:	rpmbuild(macros) >= 1.344
 %{?requires_php_extension}
 Requires:	php-common >= 4:5.0.4
-Obsoletes:	php-pear-%{_modname}
+Obsoletes:	php-pear-%{modname}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Proctitle extension to PHP that allows seeing which portion of code is
-executed by Apache child at the moment simply using ‘ps’.
+This extension allows changing the current process'. This is useful
+when using pcntl_fork() to identify running processes in process list.
+
+%description -l pl.UTF-8
+Rozszerzenie to pozwala na zmianę nazwy bieżącego procesu. Jest to
+szcególnie przydante do identyfikacji procesów na liście procesu w
+przypadku korzystania z pcntl_fork().
 
 %prep
 %setup -q -c
-cat <<'EOF' > %{_modname}.ini
-; Enable %{_modname} extension module
-extension=%{_modname}.so
+cat <<'EOF' > %{modname}.ini
+; Enable %{modname} extension module
+extension=%{modname}.so
 EOF
 
-
 %build
-cd pecl-%{_modname}
+cd %{modname}-%{version}
 phpize
-%configure \
-	--%{!?debug:dis}%{?debug:en}able-debug
+%configure
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -D pecl-%{_modname}/modules/proctitle.so $RPM_BUILD_ROOT%{php_extensiondir}/%{_modname}.so
+install -D %{modname}-%{version}/modules/proctitle.so $RPM_BUILD_ROOT%{php_extensiondir}/%{modname}.so
 
 install -d $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d
 
-cp -a %{_modname}.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{_modname}.ini
+cp -a %{modname}.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{modname}.ini
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -57,5 +59,6 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{_modname}.ini
-%attr(755,root,root) %{php_extensiondir}/%{_modname}.so
+%doc %{modname}-%{version}/README
+%config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
+%attr(755,root,root) %{php_extensiondir}/%{modname}.so
