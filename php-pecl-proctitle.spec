@@ -1,6 +1,6 @@
 %define		modname proctitle
-Summary:	change current process' name
-Summary(pl.UTF-8):	zmiana nazwy bieżącego procesu
+Summary:	Change current process' name
+Summary(pl.UTF-8):	Zmiana nazwy bieżącego procesu
 Name:		php-pecl-%{modname}
 Version:	0.1.1
 Release:	1
@@ -22,7 +22,7 @@ when using pcntl_fork() to identify running processes in process list.
 
 %description -l pl.UTF-8
 Rozszerzenie to pozwala na zmianę nazwy bieżącego procesu. Jest to
-szcególnie przydante do identyfikacji procesów na liście procesu w
+szczególnie przydatne do identyfikacji procesów na liście procesów w
 przypadku korzystania z pcntl_fork().
 
 %prep
