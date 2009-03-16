@@ -13,7 +13,6 @@ BuildRequires:	php-devel >= 3:5.0.0
 BuildRequires:	rpmbuild(macros) >= 1.344
 %{?requires_php_extension}
 Requires:	php-common >= 4:5.0.4
-Obsoletes:	php-pear-%{modname}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,9 +40,7 @@ phpize
 %install
 rm -rf $RPM_BUILD_ROOT
 install -D %{modname}-%{version}/modules/proctitle.so $RPM_BUILD_ROOT%{php_extensiondir}/%{modname}.so
-
 install -d $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d
-
 cp -a %{modname}.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{modname}.ini
 
 %clean
