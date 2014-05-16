@@ -4,17 +4,17 @@ Summary:	Change current process' name
 Summary(pl.UTF-8):	Zmiana nazwy bieżącego procesu
 Name:		%{php_name}-pecl-%{modname}
 Version:	0.1.2
-Release:	6
+Release:	7
 License:	PHP 3.01
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{modname}-%{version}.tgz
 # Source0-md5:	5ebf52449f50013383f052271b0dc21a
 URL:		http://pecl.php.net/package/proctitle/
-BuildRequires:	%{php_name}-devel >= 3:5.0.0
+BuildRequires:	%{php_name}-devel >= 3:5.0.4
 BuildRequires:	rpmbuild(macros) >= 1.650
 %{?requires_php_extension}
-Requires:	php(core) >= 5.0.4
 Provides:	php(%{modname}) = %{version}
+Obsoletes:	php-pecl-proctitle < 0.1.2-6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
