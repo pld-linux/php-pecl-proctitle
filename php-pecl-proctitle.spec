@@ -18,8 +18,9 @@ Obsoletes:	php-pecl-proctitle < 0.1.2-6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-This extension allows changing the current process'. This is useful
-when using pcntl_fork() to identify running processes in process list.
+This extension allows changing the current process name. This is
+useful when using pcntl_fork() to identify running processes in
+process list.
 
 %description -l pl.UTF-8
 Rozszerzenie to pozwala na zmianę nazwy bieżącego procesu. Jest to
@@ -29,6 +30,17 @@ przypadku korzystania z pcntl_fork().
 %prep
 %setup -qc
 mv %{modname}-%{version}/* .
+
+%if "%{php_major_version}.%{php_minor_version}" >= "5.5"
+cat >&2 <<-EOF
+
+Use 'cli_set_process_title()' instead, available since PHP >= 5.5
+
+http://php.net/manual/en/function.cli-set-process-title.php
+
+EOF
+exit 1
+%endif
 
 cat <<'EOF' > %{modname}.ini
 ; Enable %{modname} extension module
